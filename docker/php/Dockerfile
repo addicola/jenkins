@@ -10,23 +10,57 @@ RUN sudo apt-get install -y php7.1 php7.1-xdebug php7.1-xsl php7.1-dom \
 # Install Update
 RUN sudo apt-get update
 RUN sudo apt-get -y --purge autoremove
-RUN sudo apt-get install -y git unzip
 
-# Install Docker ext 
-RUN apt -yqq update
-RUN apt -yqq install libxml2-dev
-RUN docker-php-ext-install pdo_mysql
-RUN docker-php-ext-install xml
-RUN docker-php-ext-install docker-php-ext-install mbstring \
-        && docker-php-ext-install curl \
-        && docker-php-ext-install mysqli \
-	&& docker-php-ext-install pcntl \
-	&& docker-php-ext-install pdo \
-	&& docker-php-ext-install pdo_mysql \
-	&& docker-php-ext-install phar \
-	&& docker-php-ext-install posix \
-	&& docker-php-ext-install simplexml \
-	&& docker-php-ext-install soap 
+# Common
+RUN apt-get update \
+	&& apt-get install -y \
+		openssl \
+		git
+                
+# PHP
+# intl
+RUN apt-get update \
+	&& apt-get install -y libicu-dev \
+	&& docker-php-ext-configure intl \
+	&& docker-php-ext-install intl
+
+# xml
+RUN apt-get update \
+	&& apt-get install -y \
+	libxml2-dev \
+	libxslt-dev \
+	&& docker-php-ext-install \
+		dom \
+		xmlrpc \
+		xsl
+
+# images
+RUN apt-get update \
+	&& apt-get install -y \
+	libfreetype6-dev \
+	libjpeg62-turbo-dev \
+	libpng12-dev \
+	libgd-dev \
+	&& docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
+	&& docker-php-ext-install \
+		gd \
+		exif
+
+# database
+RUN docker-php-ext-install \
+	mysqli \
+	pdo \
+	pdo_mysql
+
+# mcrypt
+RUN apt-get update \
+	&& apt-get install -y libmcrypt-dev \
+	&& docker-php-ext-install mcrypt
+
+# strings
+RUN docker-php-ext-install \
+	gettext \
+	mbstring
 
 # Install COMPOSER
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
