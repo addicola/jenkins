@@ -13,7 +13,7 @@ RUN sudo apt-get -y --purge autoremove
 RUN sudo apt-get install -y git unzip
 
 # Install Docker ext 
-RUN docker-php-ext-install json \
+RUN sudo apt-get install -y docker-php-ext-install json \
 	&& docker-php-ext-install mbstring \
 	&& docker-php-ext-install tokenizer \
         && docker-php-ext-install gmp \
