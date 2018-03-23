@@ -4,12 +4,13 @@ FROM evarga/jenkins-slave
 # Install PHP7
 RUN sudo LC_ALL=C.UTF-8 add-apt-repository -y ppa:ondrej/php
 RUN sudo apt-get update
-RUN sudo apt-get install -y php7.0 php7.0-xdebug php7.0-xsl php7.0-dom \
-        php7.0-zip php7.0-mbstring
+RUN sudo apt-get install -y php7.1 php7.1-xdebug php7.1-xsl php7.1-dom \
+        php7.1-zip php7.1-mbstring
 
 # Install Update
 RUN sudo apt-get update
 RUN sudo apt-get -y --purge autoremove
+RUN sudo insall -y git unzip
 
 # Install COMPOSER
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
