@@ -16,14 +16,8 @@ RUN apt-get update \
 	&& apt-get install -y \
 		openssl \
 		git
-                
-# PHP
-# intl
-RUN apt-get update \
-	&& apt-get install -y libicu-dev \
-	&& docker-php-ext-configure intl \
-	&& docker-php-ext-install intl
 
+# PHP
 # xml
 RUN apt-get update \
 	&& apt-get install -y \
