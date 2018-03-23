@@ -3,7 +3,8 @@ FROM evarga/jenkins-slave
 
 # Install PHP7
 RUN sudo LC_ALL=C.UTF-8 add-apt-repository -y ppa:ondrej/php
-RUN apt-get install -y php7.0 php7.0-xdebug php7.0-xsl php7.0-dom \
+RUN sudo apt-get update
+RUN sudo apt-get install -y php7.0 php7.0-xdebug php7.0-xsl php7.0-dom \
         php7.0-zip php7.0-mbstring
 
 # Install Update
