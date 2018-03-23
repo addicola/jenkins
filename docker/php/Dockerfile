@@ -13,11 +13,11 @@ RUN sudo apt-get -y --purge autoremove
 RUN sudo apt-get install -y git unzip
 
 # Install Docker ext 
-RUN apt-get install libldap2-dev -y && \
-    rm -rf /var/lib/apt/lists/* && \
-    docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu/ && \
-    docker-php-ext-install ldap
-RUN sudo apt-get install -y docker-php-ext-install docker-php-ext-install mbstring \
+RUN apt -yqq update
+RUN apt -yqq install libxml2-dev
+RUN docker-php-ext-install pdo_mysql
+RUN docker-php-ext-install xml
+RUN docker-php-ext-install docker-php-ext-install mbstring \
         && docker-php-ext-install curl \
         && docker-php-ext-install mysqli \
 	&& docker-php-ext-install pcntl \
