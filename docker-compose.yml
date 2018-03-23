@@ -12,6 +12,6 @@ services:
       - 'php-slave:php-slave'
   php-slave:
     build:
-      context: ./dir
+      context: ./docker/php
       dockerfile: Dockerfile
   
