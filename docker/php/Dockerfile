@@ -10,7 +10,7 @@ RUN sudo apt-get install -y php7.1 php7.1-xdebug php7.1-xsl php7.1-dom \
 # Install Update
 RUN sudo apt-get update
 RUN sudo apt-get -y --purge autoremove
-RUN sudo insall -y git unzip
+RUN sudo apt-get install -y git unzip
 
 # Install COMPOSER
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
