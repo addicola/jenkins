@@ -1,12 +1,5 @@
 FROM evarga/jenkins-slave
 
-
-# Install PHP7
-RUN sudo LC_ALL=C.UTF-8 add-apt-repository -y ppa:ondrej/php
-RUN sudo apt-get update
-RUN sudo apt-get install -y php7.1 php7.1-xdebug php7.1-xsl php7.1-dom \
-        php7.1-zip php7.1-mbstring
-
 # Install Update
 RUN sudo apt-get update
 RUN sudo apt-get -y --purge autoremove
@@ -17,26 +10,14 @@ RUN apt-get update \
 		openssl \
 		git
 
-# PHP
-# xml
-RUN apt-get update \
-	&& apt-get install -y \
-	libxml2-dev \
-	libxslt-dev \
-	&& docker-php-ext-install \
-		dom \
-		xmlrpc \
-		xsl
+# RUN docker-php-ext-install mcrypt pdo_mysql mbstring
 
-# mcrypt
-RUN apt-get update \
-	&& apt-get install -y libmcrypt-dev \
-	&& docker-php-ext-install mcrypt
 
-# strings
-RUN docker-php-ext-install \
-	gettext \
-	mbstring
+# Install PHP7
+RUN sudo LC_ALL=C.UTF-8 add-apt-repository -y ppa:ondrej/php
+RUN sudo apt-get update
+RUN sudo apt-get install -y php7.1 php7.1-xdebug php7.1-xsl php7.1-dom \
+        php7.1-zip php7.1-mbstring
 
 # Install COMPOSER
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
