@@ -6,18 +6,59 @@ RUN sudo apt-get -y --purge autoremove
 
 # Common
 RUN apt-get update \
-	&& apt-get install -y \
+	&& apt-get install -y python-setuptools \ 
+		curl \
+		git \
+		nano \
+		sudo \
+		unzip \
+		openssh-server \
 		openssl \
-		git
+		supervisor \
+		nginx \
+		memcached \
+		ssmtp \
+		cron 
 
-# RUN docker-php-ext-install mcrypt pdo_mysql mbstring
-
+RUN apt-get update && \
+	apt-get install -y --no-install-recommends apt-utils \ 
+		software-properties-common \
+		python-software-properties \
+		language-pack-en-base
 
 # Install PHP7
 RUN sudo LC_ALL=C.UTF-8 add-apt-repository -y ppa:ondrej/php
 RUN sudo apt-get update
-RUN sudo apt-get install -y php7.1 php7.1-xdebug php7.1-xsl php7.1-dom \
-        php7.1-zip php7.1-mbstring
+RUN apt-get install -y php7.1-fpm \
+		php7.1-mysql \
+	    php7.1-curl \
+	    php7.1-gd \
+	    php7.1-intl \
+	    php7.1-mcrypt \
+	    php-memcache \
+	    php7.1-sqlite \
+	    php7.1-tidy \
+	    php7.1-xmlrpc \
+	    php7.1-pgsql \
+	    php7.1-ldap \
+	    freetds-common \
+	    php7.1-pgsql \
+	    php7.1-sqlite3 \
+	    php7.1-json \
+	    php7.1-xml \
+	    php7.1-mbstring \
+	    php7.1-soap \
+	    php7.1-zip \
+	    php7.1-cli \
+	    php7.1-sybase \
+	    php7.1-odbc
+
+# Cleanup
+RUN apt-get remove --purge -y software-properties-common \
+	python-software-properties && \
+	apt-get autoremove -y && \
+	apt-get clean && \
+	apt-get autoclean
 
 # Install COMPOSER
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
